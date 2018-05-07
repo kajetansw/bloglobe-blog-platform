@@ -1,8 +1,13 @@
 package kajetansw.bloglobe.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +26,9 @@ public class User {
 	
 	@Column(name="last_name")
 	private String lastName;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="user", cascade= CascadeType.ALL)
+	private List<Post> posts;
 
 	public User() {
 	}
@@ -62,6 +70,14 @@ public class User {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 
 	@Override
