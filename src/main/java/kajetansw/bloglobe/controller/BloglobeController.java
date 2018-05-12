@@ -48,6 +48,7 @@ public class BloglobeController {
 		return "dashboard";
 	}
 	
+	// saving or updating Post
 	@PostMapping("/save-post")
 	public String savePost(@ModelAttribute("post") Post thePost) {
 		
@@ -73,7 +74,27 @@ public class BloglobeController {
 		return "view-post";
 	}
 	
-	
+	@GetMapping("edit-post")
+	public String editPost(@RequestParam(value="id") final int id, 
+			Model theModel) {
+		
+		// get Post from the Service by its id
+		Post postToEdit = bloglobeService.getPostById(id);
+		
+		// get current User
+		User currentUser = getCurrentUser();
+		
+		if (postToEdit.getUser().getUsername().equals(currentUser.getUsername())) {
+			
+			// add postToEdit to the Model
+			theModel.addAttribute("postToEdit", postToEdit);
+			
+			return "edit-post";
+		} else {
+			return "access-denied";
+		}
+		
+	}
 	
 	
 	///////////////////////////////

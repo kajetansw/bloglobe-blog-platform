@@ -58,7 +58,7 @@
     <!-- HEADER -->
     <header class="bg-primary text-white p-3">
         <div class="container">
-            <h2><i class="fa fa-user"></i> Welcome, ${currentUser.firstName}!</h2>
+            <h2><i class="fa fa-pencil"></i> Edit Post</h2>
         </div>
     </header>
     
@@ -66,116 +66,79 @@
     <section class="py-4">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-3">
-    				<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#add-post-modal">
-    					<i class="fa fa-plus"></i> Add Post
-    				</button>
-    			</div>
-    		</div>
-    	</div>
-    </section>
-
-	<!-- LIST POSTS -->
-    <section id="posts" class="mt-2">
-    	<div class="container">
-    		<div class="row">
-    			<div class="col-md-10">
-    				<div class="card">
-    					<div class="card-header">
-    						<h4>Latest Posts</h4>
-    					</div>
-    					
-    					<table class="table table-striped table-hover">
-	    					<thead class="thead-dark">
-	    						<tr>
-	    							<th style="width:50%;">Title</th>
-	    							<th>Date</th>
-	    							<th>Author</th>
-	    						</tr>
-	    					</thead>
-	    					
-	    					<tbody>
-	    						<c:forEach var="tempPost" items="${ posts }">
-	    							<tr class='clickable-row' data-href='view-post?id=${tempPost.id}'>
-	    								<td>${ tempPost.title }</td>
-	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
-	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
-	    							</tr>
-	    						</c:forEach>
-	    					</tbody>
-	    				</table>
+    			<div class="col-md-12">
+    				<div class="row justify-content-between">
+    					<div class="col-md-3">
+		    				<a href="${ pageContext.request.contextPath }/view-post?id=${postToEdit.id}" class="btn btn-outline-success btn-block my-1">
+		    					<i class="fa fa-arrow-left"></i> Back To Post
+		    				</a>
+		    			</div>
+		    			
+		    			<div class="col-md-3">
+		    				<button form="edit-post-form" class="btn btn-danger btn-block my-1">
+		    					<i class="fa fa-check"></i> Save
+		    				</button>
+		    			</div>
     				</div>
     			</div>
     		</div>
     	</div>
     </section>
     
+    <!-- EDIT POST -->
+    <section>
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-12">
+    				<div class="card">
+    					
+    					<div class="card-body">
+    						<form:form action="save-post" modelAttribute="postToEdit" 
+									id="edit-post-form" method="POST">
+							
+								<form:hidden path="id"/>
+								<form:hidden path="user.username"/>
+								<form:hidden path="date"/>
+								
+								<div class="form-group">
+									<label for="input-post-title">Title</label>
+									<form:input path="title" type="text" class="form-control" id="input-post-title"/>
+								</div>
+								
+								<div class="form-group">
+									<label for="input-post-content">Content</label>
+									<form:textarea path="content" id="input-post-content" rows="10" class="form-control"></form:textarea>
+								</div>
+								
+							</form:form>
+    					</div>
+    					
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+
     <!-- Add some free space -->
     <div style="height: 5rem;"></div>
-    
+
     <!-- FOOTER -->
     <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
         <div class="container">
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>
     </footer>
-    
-    <!-- POST MODAL -->
-	<div class="modal fade" id="add-post-modal" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-primary text-white">
-					<h5>Add Post</h5>
-					<button type="button" class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				
-				<div class="modal-body">
-					<form:form action="save-post" modelAttribute="post" 
-							id="add-post-form" method="POST">
-							
-						<form:hidden path="id"/>
-						<form:hidden path="user.username"/>
-						<form:hidden path="date"/>
-						
-						<div class="form-group">
-							<label for="input-post-title">Title</label>
-							<form:input path="title" type="text" class="form-control" id="input-post-title"/>
-						</div>
-						
-						<div class="form-group">
-							<label for="input-post-content">Content</label>
-							<form:textarea path="content" id="input-post-content" rows="5" class="form-control"></form:textarea>
-						</div>
-						
-					</form:form>
-				</div>
-				
-				<div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-warning" form="add-post-form">Save Changes</button>
-                </div>
-			</div>
-		</div>
-	</div>
-	
+
 
 
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'content' );
-        
-        $(function($) {
-            $(".clickable-row").click(function() {
-                window.location = $(this).data("href");
-            });
-            $(".clickable-row").css("cursor", "pointer");
-        });
+        CKEDITOR.config.height = '20em'; 
     </script>
 </body>
 </html>
