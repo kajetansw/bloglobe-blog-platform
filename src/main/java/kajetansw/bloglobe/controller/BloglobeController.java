@@ -33,20 +33,17 @@ public class BloglobeController {
 		// add posts to the model
 		theModel.addAttribute("posts", thePosts);
 		
-		// retrieve the current authenticated principal user
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		
 		// get User from the Service
-		User currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
+		User currentUser = getCurrentUser();
 		
 		// create model attribute to bind Add Form data and set current User
 		Post newPost = new Post();
 		newPost.setUser(currentUser);
 		newPost.setDate(LocalDateTime.now());
 		
-		// add newPost to the model
+		// add newPost nad current User to the model
 		theModel.addAttribute("post", newPost);
+		theModel.addAttribute("currentUser", getCurrentUser());
 		
 		return "dashboard";
 	}
@@ -67,9 +64,31 @@ public class BloglobeController {
 		// get Post from the Service by its id
 		Post postToView = bloglobeService.getPostById(id);
 		
+		// add currentUser to the Model
+		theModel.addAttribute("currentUser", getCurrentUser());
+		
 		// add postToView to the Model
 		theModel.addAttribute("postToView", postToView);
 		
 		return "view-post";
+	}
+	
+	
+	
+	
+	///////////////////////////////
+	// HELPER METHODS
+	///////////////////////////////
+	
+	private User getCurrentUser() {
+		
+		// retrieve the current authenticated principal user
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
+		// get User from the Service
+		User currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
+		
+		return currentUser;
 	}
 }

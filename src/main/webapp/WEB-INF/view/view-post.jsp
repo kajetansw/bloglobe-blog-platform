@@ -69,16 +69,18 @@
     			<div class="col-md-10">
     				<div class="row justify-content-between">
     					<div class="col-md-3">
-		    				<a href="${ pageContext.request.contextPath }" class="btn btn-outline-secondary btn-block">
+		    				<a href="${ pageContext.request.contextPath }" class="btn btn-outline-secondary btn-block my-1">
 		    					<i class="fa fa-arrow-left"></i> Back To Dashboard
 		    				</a>
 		    			</div>
 		    			
-		    			<div class="col-md-3">
-		    				<a href="${ pageContext.request.contextPath }/edit-post?id=${postToView.id}" class="btn btn-warning btn-block">
-		    					<i class="fa fa-pencil"></i> Edit
-		    				</a>
-		    			</div>
+		    			<c:if test="${postToView.user.username.equals(currentUser.username)}">
+		    				<div class="col-md-3">
+			    				<a href="${ pageContext.request.contextPath }/edit-post?id=${postToView.id}" class="btn btn-warning btn-block my-1">
+			    					<i class="fa fa-pencil"></i> Edit
+			    				</a>
+			    			</div>
+		    			</c:if>
     				</div>
     			</div>
     		</div>
@@ -86,7 +88,7 @@
     </section>
     
     <!-- VIEW POST -->
-    <section id="post-to-view" class="mt-2 mb-5">
+    <section id="post-to-view" class="mt-1 mb-5">
     	<div class="container">
     		<div class="row">
     			<div class="col-md-10">

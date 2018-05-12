@@ -58,7 +58,7 @@
     <!-- HEADER -->
     <header class="bg-primary text-white p-3">
         <div class="container">
-            <h2><i class="fa fa-user"></i> Welcome!</h2>
+            <h2><i class="fa fa-user"></i> Welcome, ${currentUser.firstName}!</h2>
         </div>
     </header>
     
@@ -79,7 +79,7 @@
     <section id="posts" class="mt-2">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-9">
+    			<div class="col-md-10">
     				<div class="card">
     					<div class="card-header">
     						<h4>Latest Posts</h4>
