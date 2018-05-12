@@ -88,7 +88,7 @@
     					<table class="table table-striped table-hover">
 	    					<thead class="thead-dark">
 	    						<tr>
-	    							<th>Title</th>
+	    							<th style="width:50%;">Title</th>
 	    							<th>Date</th>
 	    							<th>Author</th>
 	    						</tr>
@@ -96,7 +96,7 @@
 	    					
 	    					<tbody>
 	    						<c:forEach var="tempPost" items="${ posts }">
-	    							<tr>
+	    							<tr class='clickable-row' data-href='view-post?id=${tempPost.id}'>
 	    								<td>${ tempPost.title }</td>
 	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
 	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
@@ -129,22 +129,29 @@
 				</div>
 				
 				<div class="modal-body">
-					<form action="" id="add-post-form">
+					<form:form action="save-post" modelAttribute="post" 
+							id="add-post-form" method="POST">
+							
+						<form:hidden path="id"/>
+						<form:hidden path="user.username"/>
+						<form:hidden path="date"/>
+						
 						<div class="form-group">
 							<label for="input-post-title">Title</label>
-							<input type="text" class="form-control" id="input-post-title" placeholder="Enter title">
+							<form:input path="title" type="text" class="form-control" id="input-post-title"/>
 						</div>
 						
 						<div class="form-group">
-							<label for="input-post-body">Body</label>
-							<textarea name="editor1" id="input-post-body" rows="5" class="form-control"></textarea>
+							<label for="input-post-content">Content</label>
+							<form:textarea path="content" id="input-post-content" rows="5" class="form-control"></form:textarea>
 						</div>
-					</form>
+						
+					</form:form>
 				</div>
 				
 				<div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-warning" form="add-post-form">Save Changes</button>
+                    <button type="submit" class="btn btn-warning" form="add-post-form">Save Changes</button>
                 </div>
 			</div>
 		</div>
@@ -158,7 +165,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'editor1' );
+        CKEDITOR.replace( 'content' );
+        
+        $(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+            $(".clickable-row").css("cursor", "pointer");
+        });
     </script>
 </body>
 </html>

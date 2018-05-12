@@ -1,15 +1,20 @@
 package kajetansw.bloglobe.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import kajetansw.bloglobe.entity.Post;
+import kajetansw.bloglobe.entity.User;
 import kajetansw.bloglobe.service.IBloglobeService;
 
 @Controller
@@ -27,6 +32,21 @@ public class BloglobeController {
 		// add posts to the model
 		theModel.addAttribute("posts", thePosts);
 		
+		// retrieve the current authenticated principal user
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentPrincipalName = authentication.getName();
+		
+		// get User from the Service
+		User currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
+		
+		// create model attribute to bind Add Form data and set current User
+		Post newPost = new Post();
+		newPost.setUser(currentUser);
+		newPost.setDate(LocalDateTime.now());
+		
+		// add newPost to the model
+		theModel.addAttribute("post", newPost);
+		
 		return "dashboard";
 	}
 	
@@ -37,5 +57,14 @@ public class BloglobeController {
 		bloglobeService.savePost(thePost);
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("/view-post")
+	public String viewPost(@PathVariable(value="id") final int id ) {
+		
+		// get Post from the Service by its id
+		// Post postToView = bloglobeService.getPostById(id);
+		
+		return null;
 	}
 }

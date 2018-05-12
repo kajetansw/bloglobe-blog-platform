@@ -43,4 +43,14 @@ public class BloglobeDAO implements IBloglobeDAO {
 		currentSession.saveOrUpdate(thePost);
 	}
 
+	@Override
+	public User getCurrentUser(String currentPrincipalName) {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		User theUser = currentSession.get(User.class, currentPrincipalName);
+		
+		return theUser;
+	}
+
 }
