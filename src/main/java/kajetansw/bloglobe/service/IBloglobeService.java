@@ -6,4 +6,6 @@ import kajetansw.bloglobe.entity.Post;
 
 public interface IBloglobeService {
 	public List<Post> getPosts();
+
+	public void savePost(Post thePost);
 }

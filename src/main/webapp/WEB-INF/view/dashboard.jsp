@@ -61,9 +61,22 @@
             <h2><i class="fa fa-user"></i> Welcome!</h2>
         </div>
     </header>
+    
+    <!-- BUTTONS -->
+    <section class="py-4">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-3">
+    				<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#add-post-modal">
+    					<i class="fa fa-plus"></i> Add Post
+    				</button>
+    			</div>
+    		</div>
+    	</div>
+    </section>
 
 	<!-- LIST POSTS -->
-    <section id="posts" class="mt-4">
+    <section id="posts" class="mt-2">
     	<div class="container">
     		<div class="row">
     			<div class="col-md-9">
@@ -85,7 +98,7 @@
 	    						<c:forEach var="tempPost" items="${ posts }">
 	    							<tr>
 	    								<td>${ tempPost.title }</td>
-	    								<td>${ tempPost.date }</td>
+	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
 	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
 	    							</tr>
 	    						</c:forEach>
@@ -103,12 +116,49 @@
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>
     </footer>
-
+    
+    <!-- POST MODAL -->
+	<div class="modal fade" id="add-post-modal" role="dialog">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-white">
+					<h5>Add Post</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<form action="" id="add-post-form">
+						<div class="form-group">
+							<label for="input-post-title">Title</label>
+							<input type="text" class="form-control" id="input-post-title" placeholder="Enter title">
+						</div>
+						
+						<div class="form-group">
+							<label for="input-post-body">Body</label>
+							<textarea name="editor1" id="input-post-body" rows="5" class="form-control"></textarea>
+						</div>
+					</form>
+				</div>
+				
+				<div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-warning" form="add-post-form">Save Changes</button>
+                </div>
+			</div>
+		</div>
+	</div>
+	
 
 
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
 </body>
 </html>

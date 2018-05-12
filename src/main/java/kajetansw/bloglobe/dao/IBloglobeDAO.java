@@ -6,6 +6,8 @@ import kajetansw.bloglobe.entity.Post;
 
 public interface IBloglobeDAO {
 
-	List<Post> getPosts();
+	public List<Post> getPosts();
+
+	public void savePost(Post thePost);
 
 }

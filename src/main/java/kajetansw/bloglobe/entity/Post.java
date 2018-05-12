@@ -1,6 +1,7 @@
 package kajetansw.bloglobe.entity;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

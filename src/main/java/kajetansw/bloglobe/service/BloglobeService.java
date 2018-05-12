@@ -23,5 +23,11 @@ public class BloglobeService implements IBloglobeService {
 		return bloglobeDAO.getPosts();
 	}
 
+	@Override
+	@Transactional
+	public void savePost(Post thePost) {
+		bloglobeDAO.savePost(thePost);
+	}
+
 
 }

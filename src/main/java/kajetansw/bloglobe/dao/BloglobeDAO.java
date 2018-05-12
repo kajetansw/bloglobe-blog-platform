@@ -33,4 +33,14 @@ public class BloglobeDAO implements IBloglobeDAO {
 		return posts;
 	}
 
+	@Override
+	public void savePost(Post thePost) {
+		
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// save/update the post
+		currentSession.saveOrUpdate(thePost);
+	}
+
 }
