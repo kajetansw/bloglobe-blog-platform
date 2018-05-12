@@ -36,5 +36,11 @@ public class BloglobeService implements IBloglobeService {
 		return bloglobeDAO.getCurrentUser(currentPrincipalName);
 	}
 
+	@Override
+	@Transactional
+	public Post getPostById(int id) {
+		return bloglobeDAO.getPostById(id);
+	}
+
 
 }

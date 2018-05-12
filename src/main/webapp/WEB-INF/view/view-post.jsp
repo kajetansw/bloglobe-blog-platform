@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,53 +56,63 @@
     </nav>
 
     <!-- HEADER -->
-    <header class="bg-primary text-white p-3">
+    <header class="bg-success text-white p-3">
         <div class="container">
-            <h2><i class="fa fa-user"></i> Welcome!</h2>
+            <h2><i class="fa fa-folder-open"></i> Post by ${postToView.user.firstName} ${postToView.user.lastName}</h2>
         </div>
     </header>
-
-    <!-- LOGIN FORM -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                 <div class="col-md-5">
-                    <div class="card">
-                        <div class="card-header">
-                            Please, log in:
-                        </div>
-
-                        <div class="card-body">
-                            <form action="">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <hr>
-
-                                <input type="submit" class="btn btn-primary btn-block" value="Login">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    <!-- BUTTONS -->
+    <section class="py-4">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-10">
+    				<div class="row justify-content-between">
+    					<div class="col-md-3">
+		    				<a href="${ pageContext.request.contextPath }" class="btn btn-outline-secondary btn-block">
+		    					<i class="fa fa-arrow-left"></i> Back To Dashboard
+		    				</a>
+		    			</div>
+		    			
+		    			<div class="col-md-3">
+		    				<a href="${ pageContext.request.contextPath }/edit-post?id=${postToView.id}" class="btn btn-warning btn-block">
+		    					<i class="fa fa-pencil"></i> Edit
+		    				</a>
+		    			</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </section>
+    
+    <!-- VIEW POST -->
+    <section id="post-to-view" class="mt-2 mb-5">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-10">
+    				<div class="card">
+    					
+    					<div class="card-header">
+    						<h4>${postToView.title}</h4>
+    					</div>
+    					
+    					<div class="card-body">
+    						${postToView.content}
+    					</div>
+    					
+    					<div class="card-footer">
+    						<blockquote class="blockquote pt-2">
+    							<footer class="blockquote-footer">
+    								Published ${postToView.date.toLocalDate()} ${postToView.date.withSecond(0).toLocalTime()} 
+    								by <cite title="Source Title">${postToView.user.firstName} ${postToView.user.lastName}</cite>
+    							</footer>
+    						</blockquote>
+    					</div>
+    					
+    				</div>
+    			</div>
+    		</div>
+    	</div>
     </section>
     
     <!-- Add some free space -->
@@ -108,7 +121,7 @@
     <!-- FOOTER -->
     <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
         <div class="container">
-            Copyright &copy; Kajetan Świątek, 2018 
+            Copyright &copy; Kajetan Swiatek, 2018 
         </div>
     </footer>
 

@@ -110,6 +110,9 @@
     	</div>
     </section>
     
+    <!-- Add some free space -->
+    <div style="height: 5rem;"></div>
+    
     <!-- FOOTER -->
     <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
         <div class="container">

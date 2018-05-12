@@ -46,11 +46,25 @@ public class BloglobeDAO implements IBloglobeDAO {
 	@Override
 	public User getCurrentUser(String currentPrincipalName) {
 		
+		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
+		// get User by primary key
 		User theUser = currentSession.get(User.class, currentPrincipalName);
 		
 		return theUser;
+	}
+
+	@Override
+	public Post getPostById(int id) {
+		
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// get Post by id
+		Post thePost = currentSession.get(Post.class, id);
+		
+		return thePost;
 	}
 
 }

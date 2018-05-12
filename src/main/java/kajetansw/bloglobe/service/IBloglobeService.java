@@ -11,4 +11,6 @@ public interface IBloglobeService {
 	public void savePost(Post thePost);
 
 	public User getCurrentUser(String currentPrincipalName);
+
+	public Post getPostById(int id);
 }

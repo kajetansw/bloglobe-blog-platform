@@ -38,6 +38,16 @@
                         <a href="/" class="nav-link">Users</a>
                     </li>
                 </ul>
+                
+                <ul class="navbar-nav ml-auto">
+                	<li class="nav-item px-2">
+                        <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST">
+							<a href="javascript:{}" class="ml-auto nav-link" onclick="document.getElementById('logout-form').submit(); return false;">
+	                        	<i class="fa fa-times"></i> Logout
+	                        </a>
+						</form:form>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -91,6 +101,9 @@
             </div>
         </div>
     </section>
+    
+    <!-- Add some free space -->
+    <div style="height: 5rem;"></div>
 
     <!-- FOOTER -->
     <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">

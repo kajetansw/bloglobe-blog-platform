@@ -13,4 +13,6 @@ public interface IBloglobeDAO {
 
 	public User getCurrentUser(String currentPrincipalName);
 
+	public Post getPostById(int id);
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kajetansw.bloglobe.entity.Post;
 import kajetansw.bloglobe.entity.User;
@@ -60,11 +61,15 @@ public class BloglobeController {
 	}
 	
 	@GetMapping("/view-post")
-	public String viewPost(@PathVariable(value="id") final int id ) {
+	public String viewPost(@RequestParam(value="id") final int id, 
+			Model theModel) {
 		
 		// get Post from the Service by its id
-		// Post postToView = bloglobeService.getPostById(id);
+		Post postToView = bloglobeService.getPostById(id);
 		
-		return null;
+		// add postToView to the Model
+		theModel.addAttribute("postToView", postToView);
+		
+		return "view-post";
 	}
 }
