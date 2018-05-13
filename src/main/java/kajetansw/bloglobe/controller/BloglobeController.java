@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kajetansw.bloglobe.entity.Post;
@@ -84,16 +85,41 @@ public class BloglobeController {
 		// get current User
 		User currentUser = getCurrentUser();
 		
+		// check if the author of the post is the current user
 		if (postToEdit.getUser().getUsername().equals(currentUser.getUsername())) {
 			
 			// add postToEdit to the Model
 			theModel.addAttribute("postToEdit", postToEdit);
 			
 			return "edit-post";
-		} else {
+		} 
+		else {
 			return "access-denied";
 		}
 		
+	}
+	
+	@GetMapping("delete-post")
+	public String deletePost(@RequestParam(value="id") final int id,
+			Model theModel) {
+		
+		// get Post from the Service by its id
+		Post postToDelete = bloglobeService.getPostById(id);
+		
+		// get current User
+		User currentUser = getCurrentUser();
+		
+		// check if the author of the post is the current user
+		if (postToDelete.getUser().getUsername().equals(currentUser.getUsername()) || currentUser.getUsername().equals("admin")) {
+			
+			// delete the post
+			bloglobeService.deletePost(id);
+			
+			return "redirect:/";
+		} 
+		else {
+			return "access-denied";
+		}
 	}
 	
 	

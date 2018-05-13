@@ -69,13 +69,13 @@
     			<div class="col-md-12">
     				<div class="row justify-content-between">
     					<div class="col-md-3">
-		    				<a href="${ pageContext.request.contextPath }/view-post?id=${postToEdit.id}" class="btn btn-outline-success btn-block my-1">
+		    				<a href="${ pageContext.request.contextPath }/view-post?id=${postToEdit.id}" class="btn btn-outline-secondary btn-block my-1">
 		    					<i class="fa fa-arrow-left"></i> Back To Post
 		    				</a>
 		    			</div>
 		    			
 		    			<div class="col-md-3">
-		    				<button form="edit-post-form" class="btn btn-danger btn-block my-1">
+		    				<button form="edit-post-form" class="btn btn-success btn-block my-1">
 		    					<i class="fa fa-check"></i> Save
 		    				</button>
 		    			</div>

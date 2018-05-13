@@ -34,33 +34,6 @@ public class AppConfig {
 	// injected variable to hold properties from .properties
 	@Autowired
 	private Environment env;
-	
-	/*@Bean 
-	public SessionFactory sessionFactory() {
-		
-		Properties properties = new Properties();
-		
-		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
-		properties.put("hibernate.show_sql", "true");
-		properties.put("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
-		properties.put("hibernate.current_session_context_class", "thread");
-		properties.put("hibernate.hbm2ddl.auto", "update");
-		properties.put("hibernate.connection.url", env.getProperty("jdbc.url"));
-		properties.put("hibernate.connection.username", env.getProperty("jdbc.username"));
-		properties.put("hibernate.connection.password", env.getProperty("jdbc.password"));
-		properties.put("hibernate.connection.driver_class", env.getProperty("jdbc.driver"));
-		properties.put("hibernate.connection.pool_size", 1);
-		
-		return new org.hibernate.cfg.Configuration()
-	            .addProperties(properties)
-	            .addAnnotatedClass(User.class)
-	            .addAnnotatedClass(Post.class)
-	            .buildSessionFactory(
-                    new StandardServiceRegistryBuilder()
-                        .applySettings(properties)
-                        .build()
-	            );
-	}*/
     
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
@@ -77,21 +50,7 @@ public class AppConfig {
     	
     	return sessionFactoryBean;
     }
-    
-    /*@Bean
-    public HibernateTransactionManager transactionManager() {
-    	
-    	HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-    	
-    	SessionFactory sessionFactory = sessionFactory().getConfiguration().buildSessionFactory();
-    	
-    	transactionManager.setDataSource(securityDataSource());
-    	transactionManager.setSessionFactory(sessionFactory);
-    	
-    	return transactionManager;
-    }*/
 
-    
     @Bean
     public PlatformTransactionManager txManager() {
         //return new DataSourceTransactionManager(securityDataSource());
@@ -161,10 +120,45 @@ public class AppConfig {
 		
 		return intPropVal;
 	}
-
-	/*@Bean
-    public PlatformTransactionManager txManager() {
-        return new DataSourceTransactionManager(securityDataSource());
-    }*/
 	
+	
+	/*@Bean 
+	public SessionFactory sessionFactory() {
+		
+		Properties properties = new Properties();
+		
+		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		properties.put("hibernate.show_sql", "true");
+		properties.put("hibernate.transaction.factory_class", "org.hibernate.transaction.JDBCTransactionFactory");
+		properties.put("hibernate.current_session_context_class", "thread");
+		properties.put("hibernate.hbm2ddl.auto", "update");
+		properties.put("hibernate.connection.url", env.getProperty("jdbc.url"));
+		properties.put("hibernate.connection.username", env.getProperty("jdbc.username"));
+		properties.put("hibernate.connection.password", env.getProperty("jdbc.password"));
+		properties.put("hibernate.connection.driver_class", env.getProperty("jdbc.driver"));
+		properties.put("hibernate.connection.pool_size", 1);
+		
+		return new org.hibernate.cfg.Configuration()
+	            .addProperties(properties)
+	            .addAnnotatedClass(User.class)
+	            .addAnnotatedClass(Post.class)
+	            .buildSessionFactory(
+                    new StandardServiceRegistryBuilder()
+                        .applySettings(properties)
+                        .build()
+	            );
+	}*/
+	
+    /*@Bean
+    public HibernateTransactionManager transactionManager() {
+    	
+    	HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+    	
+    	SessionFactory sessionFactory = sessionFactory().getConfiguration().buildSessionFactory();
+    	
+    	transactionManager.setDataSource(securityDataSource());
+    	transactionManager.setSessionFactory(sessionFactory);
+    	
+    	return transactionManager;
+    }*/
 }

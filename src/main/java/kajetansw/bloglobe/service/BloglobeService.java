@@ -42,5 +42,11 @@ public class BloglobeService implements IBloglobeService {
 		return bloglobeDAO.getPostById(id);
 	}
 
+	@Override
+	@Transactional
+	public void deletePost(int id) {
+		bloglobeDAO.deletePost(id);
+	}
+
 
 }

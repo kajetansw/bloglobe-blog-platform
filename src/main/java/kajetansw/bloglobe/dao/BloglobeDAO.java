@@ -67,4 +67,18 @@ public class BloglobeDAO implements IBloglobeDAO {
 		return thePost;
 	}
 
+	@Override
+	public void deletePost(int id) {
+		
+		// get the current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// delete post with given id
+		Query deleteQuery 
+			= currentSession.createQuery("delete from Post where id=:postId");
+		deleteQuery.setParameter("postId", id);
+		
+		deleteQuery.executeUpdate();
+	}
+
 }

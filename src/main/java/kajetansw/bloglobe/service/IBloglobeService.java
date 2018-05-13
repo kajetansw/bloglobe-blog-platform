@@ -13,4 +13,6 @@ public interface IBloglobeService {
 	public User getCurrentUser(String currentPrincipalName);
 
 	public Post getPostById(int id);
+
+	public void deletePost(int id);
 }

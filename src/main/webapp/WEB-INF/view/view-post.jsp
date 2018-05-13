@@ -74,6 +74,14 @@
 		    				</a>
 		    			</div>
 		    			
+		    			<c:if test="${postToView.user.username.equals(currentUser.username) || currentUser.username == 'admin'}">
+		    				<div class="col-md-3">
+			    				<a onclick="if (!(confirm('Are you sure you want to delete this post?'))) return false;" href="${pageContext.request.contextPath}/delete-post?id=${postToView.id}" class="btn btn-danger btn-block my-1">
+			    					<i class="fa fa-times"></i> Delete
+			    				</a>
+			    			</div>
+		    			</c:if>
+		    			
 		    			<c:if test="${postToView.user.username.equals(currentUser.username)}">
 		    				<div class="col-md-3">
 			    				<a href="${ pageContext.request.contextPath }/edit-post?id=${postToView.id}" class="btn btn-warning btn-block my-1">

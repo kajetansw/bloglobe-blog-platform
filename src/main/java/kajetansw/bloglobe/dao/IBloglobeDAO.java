@@ -15,4 +15,6 @@ public interface IBloglobeDAO {
 
 	public Post getPostById(int id);
 
+	public void deletePost(int id);
+
 }
