@@ -18,4 +18,4 @@ My BLOGLOBE blog platform is allowing its user to register and login, then to li
 If someone doesn't want to register, there is default user of kajetan:test (login:password), which can be used to log in. If someone wants to feel power of admin, they can use admin:admin to login in. 
 
 ## Deployment
-The app will be deployed on Heroku soon.
+http://gentle-tor-99089.herokuapp.com
