@@ -19,7 +19,7 @@
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark py-1">
         <div class="container">
-            <a href="/" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/bg" class="navbar-brand">
                 <i class="fa fa-paper-plane pr-1"></i> Bloglobe
             </a>
 
@@ -96,7 +96,7 @@
 	    					
 	    					<tbody>
 	    						<c:forEach var="tempPost" items="${ posts }">
-	    							<tr class='clickable-row' data-href='view-post?id=${tempPost.id}'>
+	    							<tr class='clickable-row' data-href='bg/view-post?id=${tempPost.id}'>
 	    								<td>${ tempPost.title }</td>
 	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
 	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
@@ -132,7 +132,7 @@
 				</div>
 				
 				<div class="modal-body">
-					<form:form action="save-post" modelAttribute="post" 
+					<form:form action="${pageContext.request.contextPath}/bg/save-post" modelAttribute="post" 
 							id="add-post-form" method="POST">
 							
 						<form:hidden path="id"/>

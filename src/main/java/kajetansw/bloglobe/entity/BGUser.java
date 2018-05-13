@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class User {
+public class BGUser {
 
 	@Id
 	@Column(name="username")
@@ -30,10 +30,10 @@ public class User {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user", cascade= CascadeType.ALL)
 	private List<Post> posts;
 
-	public User() {
+	public BGUser() {
 	}
 
-	public User(String username, String password, String firstName, String lastName) {
+	public BGUser(String username, String password, String firstName, String lastName) {
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -82,7 +82,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password 
+		return "BGUser [username=" + username + ", password=" + password 
 				+ ", firstName=" + firstName + ", lastName="
 				+ lastName + "]";
 	}

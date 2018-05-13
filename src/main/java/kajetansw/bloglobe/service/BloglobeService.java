@@ -7,10 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kajetansw.bloglobe.dao.BloglobeDAO;
 import kajetansw.bloglobe.dao.IBloglobeDAO;
+import kajetansw.bloglobe.entity.BGUser;
 import kajetansw.bloglobe.entity.Post;
-import kajetansw.bloglobe.entity.User;
 
 @Service
 public class BloglobeService implements IBloglobeService {
@@ -32,7 +31,7 @@ public class BloglobeService implements IBloglobeService {
 
 	@Override
 	@Transactional
-	public User getCurrentUser(String currentPrincipalName) {
+	public BGUser getCurrentUser(String currentPrincipalName) {
 		return bloglobeDAO.getCurrentUser(currentPrincipalName);
 	}
 
@@ -46,6 +45,12 @@ public class BloglobeService implements IBloglobeService {
 	@Transactional
 	public void deletePost(int id) {
 		bloglobeDAO.deletePost(id);
+	}
+
+	@Override
+	@Transactional
+	public void saveUser(BGUser theUser) {
+		bloglobeDAO.saveUser(theUser);
 	}
 
 

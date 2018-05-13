@@ -8,8 +8,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kajetansw.bloglobe.entity.BGUser;
 import kajetansw.bloglobe.entity.Post;
-import kajetansw.bloglobe.entity.User;
 
 @Repository
 public class BloglobeDAO implements IBloglobeDAO {
@@ -44,13 +44,13 @@ public class BloglobeDAO implements IBloglobeDAO {
 	}
 
 	@Override
-	public User getCurrentUser(String currentPrincipalName) {
+	public BGUser getCurrentUser(String currentPrincipalName) {
 		
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// get User by primary key
-		User theUser = currentSession.get(User.class, currentPrincipalName);
+		BGUser theUser = currentSession.get(BGUser.class, currentPrincipalName);
 		
 		return theUser;
 	}
@@ -79,6 +79,22 @@ public class BloglobeDAO implements IBloglobeDAO {
 		deleteQuery.setParameter("postId", id);
 		
 		deleteQuery.executeUpdate();
+	}
+
+	@Override
+	public void saveUser(BGUser theUser) {
+
+		// get current hibernate session
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		// delete post with given id
+		Query saveQuery 
+			= currentSession.createQuery("update BGUser set firstName = :firstName, lastName = :lastName where username = :username");
+		saveQuery.setParameter("firstName", theUser.getFirstName());
+		saveQuery.setParameter("lastName", theUser.getLastName());
+		saveQuery.setParameter("username", theUser.getUsername());
+		
+		saveQuery.executeUpdate();
 	}
 
 }

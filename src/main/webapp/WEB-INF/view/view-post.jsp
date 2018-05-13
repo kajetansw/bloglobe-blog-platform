@@ -19,7 +19,7 @@
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark py-1">
         <div class="container">
-            <a href="/" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/bg" class="navbar-brand">
                 <i class="fa fa-paper-plane pr-1"></i> Bloglobe
             </a>
 
@@ -69,14 +69,14 @@
     			<div class="col-md-10">
     				<div class="row justify-content-between">
     					<div class="col-md-3">
-		    				<a href="${ pageContext.request.contextPath }" class="btn btn-outline-secondary btn-block my-1">
+		    				<a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-1">
 		    					<i class="fa fa-arrow-left"></i> Back To Dashboard
 		    				</a>
 		    			</div>
 		    			
 		    			<c:if test="${postToView.user.username.equals(currentUser.username) || currentUser.username == 'admin'}">
 		    				<div class="col-md-3">
-			    				<a onclick="if (!(confirm('Are you sure you want to delete this post?'))) return false;" href="${pageContext.request.contextPath}/delete-post?id=${postToView.id}" class="btn btn-danger btn-block my-1">
+			    				<a onclick="if (!(confirm('Are you sure you want to delete this post?'))) return false;" href="${pageContext.request.contextPath}/bg/delete-post?id=${postToView.id}" class="btn btn-danger btn-block my-1">
 			    					<i class="fa fa-times"></i> Delete
 			    				</a>
 			    			</div>
@@ -84,7 +84,7 @@
 		    			
 		    			<c:if test="${postToView.user.username.equals(currentUser.username)}">
 		    				<div class="col-md-3">
-			    				<a href="${ pageContext.request.contextPath }/edit-post?id=${postToView.id}" class="btn btn-warning btn-block my-1">
+			    				<a href="${pageContext.request.contextPath}/bg/edit-post?id=${postToView.id}" class="btn btn-warning btn-block my-1">
 			    					<i class="fa fa-pencil"></i> Edit
 			    				</a>
 			    			</div>

@@ -13,19 +13,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kajetansw.bloglobe.entity.BGUser;
 import kajetansw.bloglobe.entity.Post;
-import kajetansw.bloglobe.entity.User;
 import kajetansw.bloglobe.service.IBloglobeService;
 
 @Controller
+@RequestMapping("/bg")
 public class BloglobeController {
 	
 	@Autowired
 	private IBloglobeService bloglobeService;
 
-	@GetMapping("/")
+	@GetMapping("")
 	public String showDashboard(Model theModel) {
 		
 		// get Posts from the Service
@@ -35,7 +37,7 @@ public class BloglobeController {
 		theModel.addAttribute("posts", thePosts);
 		
 		// get User from the Service
-		User currentUser = getCurrentUser();
+		BGUser currentUser = getCurrentUser();
 		
 		// create model attribute to bind Add Form data and set current User
 		Post newPost = new Post();
@@ -83,7 +85,7 @@ public class BloglobeController {
 		Post postToEdit = bloglobeService.getPostById(id);
 		
 		// get current User
-		User currentUser = getCurrentUser();
+		BGUser currentUser = getCurrentUser();
 		
 		// check if the author of the post is the current user
 		if (postToEdit.getUser().getUsername().equals(currentUser.getUsername())) {
@@ -107,7 +109,7 @@ public class BloglobeController {
 		Post postToDelete = bloglobeService.getPostById(id);
 		
 		// get current User
-		User currentUser = getCurrentUser();
+		BGUser currentUser = getCurrentUser();
 		
 		// check if the author of the post is the current user
 		if (postToDelete.getUser().getUsername().equals(currentUser.getUsername()) || currentUser.getUsername().equals("admin")) {
@@ -127,14 +129,14 @@ public class BloglobeController {
 	// HELPER METHODS
 	///////////////////////////////
 	
-	private User getCurrentUser() {
+	private BGUser getCurrentUser() {
 		
 		// retrieve the current authenticated principal user
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
 		
 		// get User from the Service
-		User currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
+		BGUser currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
 		
 		return currentUser;
 	}

@@ -19,7 +19,7 @@
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark py-1">
         <div class="container">
-            <a href="/" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/bg" class="navbar-brand">
                 <i class="fa fa-paper-plane pr-1"></i> Bloglobe
             </a>
         </div>
@@ -76,6 +76,9 @@
 
 								<!-- Login Button -->
                                 <input type="submit" class="btn btn-primary btn-block" value="Login">
+                                
+                                <!-- Registration Button -->
+                                <a href="${pageContext.request.contextPath}/register/" class="btn btn-warning btn-block">Create new account</a>
                             
                             </form:form>
                         </div>

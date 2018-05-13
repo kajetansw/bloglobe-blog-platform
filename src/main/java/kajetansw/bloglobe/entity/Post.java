@@ -38,7 +38,7 @@ public class Post {
 		CascadeType.REFRESH	
 	})
 	@JoinColumn(name="username")
-	private User user;
+	private BGUser user;
 
 	public Post() {
 	}
@@ -50,7 +50,7 @@ public class Post {
 		this.date = date;
 	}
 
-	public Post(int id, String title, String content, LocalDateTime date, User user) {
+	public Post(int id, String title, String content, LocalDateTime date, BGUser user) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -90,11 +90,11 @@ public class Post {
 		this.date = date;
 	}
 
-	public User getUser() {
+	public BGUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(BGUser user) {
 		this.user = user;
 	}
 

@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// any request must be authenticated
 		// if logged out it will automagically redirect to /logout page with ?logout parameter
 		http.authorizeRequests()
-				.antMatchers("/**").hasRole("USER")
+				.antMatchers("/bg/**").hasRole("USER")
+				.antMatchers("/register").permitAll()
 			.and()
 			.formLogin()
 				.loginPage("/login")

@@ -19,7 +19,7 @@
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark py-1">
         <div class="container">
-            <a href="/" class="navbar-brand">
+            <a href="${pageContext.request.contextPath}/bg" class="navbar-brand">
                 <i class="fa fa-paper-plane pr-1"></i> Bloglobe
             </a>
         </div>
@@ -76,6 +76,9 @@
                                 <hr>
 
                                 <input type="submit" class="btn btn-primary btn-block" value="Register Now!">
+                                <a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-3">
+			    					<i class="fa fa-arrow-left"></i> Back To Login
+			    				</a>
                             </form:form>
                         </div>
                     </div>

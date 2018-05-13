@@ -22,43 +22,13 @@
             <a href="${pageContext.request.contextPath}/bg" class="navbar-brand">
                 <i class="fa fa-paper-plane pr-1"></i> Bloglobe
             </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navCollapseContent" >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navCollapseContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Dashboard</a>
-                    </li>
-
-                    <li class="nav-item px-2">
-                        <a href="/posts" class="nav-link">Posts</a>
-                    </li>
-
-                    <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Users</a>
-                    </li>
-                </ul>
-                
-                <ul class="navbar-nav ml-auto">
-                	<li class="nav-item px-2">
-                        <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST">
-							<a href="javascript:{}" class="ml-auto nav-link" onclick="document.getElementById('logout-form').submit(); return false;">
-	                        	<i class="fa fa-times"></i> Logout
-	                        </a>
-						</form:form>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
 
     <!-- HEADER -->
-    <header class="bg-danger text-white p-3">
+    <header class="bg-success text-white p-3">
         <div class="container">
-            <h2><i class="fa fa-times"></i> Access Denied - You are not authorized to access this resource.</h2>
+            <h2><i class="fa fa-check"></i> Registration successful! You can now log in with your new credentials.</h2>
         </div>
     </header>
     
@@ -67,8 +37,8 @@
     	<div class="container">
     		<div class="row">
     			<div class="col-md-3">
-    				<a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-1">
-    					<i class="fa fa-arrow-left"></i> Back To Dashboard
+    				<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-primary btn-block my-1">
+    					<i class="fa fa-arrow-left"></i> Back To Login
     				</a>
     			</div>
     		</div>
