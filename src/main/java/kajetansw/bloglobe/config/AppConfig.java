@@ -1,6 +1,7 @@
 package kajetansw.bloglobe.config;
 
 import java.beans.PropertyVetoException;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -44,7 +45,7 @@ public class AppConfig {
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		properties.put("hibernate.show_sql", "true");
     	
-    	sessionFactoryBean.setDataSource(securityDataSource());
+    	sessionFactoryBean.setDataSource(dataSource());
     	sessionFactoryBean.setPackagesToScan("kajetansw.bloglobe.entity");
     	sessionFactoryBean.setHibernateProperties(properties);
     	
@@ -53,7 +54,7 @@ public class AppConfig {
 
     @Bean
     public PlatformTransactionManager txManager() {
-        //return new DataSourceTransactionManager(securityDataSource());
+        //return new DataSourceTransactionManager(dataSource());
     	
     	HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
     	
@@ -75,12 +76,12 @@ public class AppConfig {
 		return viewResolver;
 	}
 	
-	// bean for security DataSource
+	// bean for DataSource
 	@Bean
-	public DataSource securityDataSource() {
-		
+	public DataSource dataSource() {
+
 		// create connection pool
-		ComboPooledDataSource securityDataSource
+		ComboPooledDataSource dataSource
 			= new ComboPooledDataSource();
 
 		System.out.println("##### jdbc.driver: " + env.getProperty("jdbc.driver"));
@@ -90,23 +91,34 @@ public class AppConfig {
 		
 		// set JDBC driver class
 		try {
-			securityDataSource.setDriverClass(env.getProperty("jdbc.driver"));
+			dataSource.setDriverClass(env.getProperty("jdbc.driver"));
 		} catch (PropertyVetoException e) {
 			e.printStackTrace();
 		}
 		
 		// set db connection props
-		securityDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-		securityDataSource.setUser(env.getProperty("jdbc.user"));
-		securityDataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+		dataSource.setUser(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
 		
 		// set connection pool props
-		securityDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-		securityDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
-		securityDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
-		securityDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+		dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+		dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 		
-		return securityDataSource;
+		// set connection testing and reestablishing
+		try {
+			dataSource.setLoginTimeout(getIntProperty("connection.pool.loginTimeout"));
+			dataSource.setMaxStatements(getIntProperty("connection.pool.maxStatements"));
+			dataSource.setIdleConnectionTestPeriod(getIntProperty("connection.pool.idleConnectionTestPeriod"));
+			dataSource.setTestConnectionOnCheckout(Boolean.valueOf(env.getProperty("connection.pool.testConnectionOnCheckout")));
+			dataSource.setPreferredTestQuery(env.getProperty("connection.pool.preferredTestQuery"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dataSource;
 	}
 	
 	
@@ -156,7 +168,7 @@ public class AppConfig {
     	
     	SessionFactory sessionFactory = sessionFactory().getConfiguration().buildSessionFactory();
     	
-    	transactionManager.setDataSource(securityDataSource());
+    	transactionManager.setDataSource(dataSource());
     	transactionManager.setSessionFactory(sessionFactory);
     	
     	return transactionManager;
