@@ -17,5 +17,5 @@ public interface IBloglobeService {
 
 	public void deletePost(int id);
 
-	public void updateUsersFirstNameAndLastName(BGUser newUser);
+	public void updateUsersFirstNameLastNameAndEmail(BGUser newUser);
 }

@@ -99,6 +99,6 @@ public class RegistrationController {
 		User tempSpringSecurityUser = new User(newUser.getUsername(), encodedPassword, usersAuthorities);
 		
 		userDetailsManager.createUser(tempSpringSecurityUser);
-		bloglobeService.updateUsersFirstNameAndLastName(newUser);
+		bloglobeService.updateUsersFirstNameLastNameAndEmail(newUser);
 	}
 }

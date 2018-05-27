@@ -72,6 +72,15 @@
                                     	<i><form:errors path="password"></form:errors></i> 
                                     </div>
                                 </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input id="email-input" type="email" class="form-control" name="email"
+                                    	data-validation="email" data-validation-error-msg="">
+                                    <div class="text-danger">
+                                    	<i><form:errors path="email"></form:errors></i> 
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
@@ -151,6 +160,7 @@
 	    
 	    $( "#password-input, #firstName-input, #lastName-input" ).attr( "data-validation-error-msg", "<span class=\"text-danger\">Field must not be empty</span>" );
 	    $( "#username-input" ).attr( "data-validation-error-msg", "<span class=\"text-danger\">Field must be at least 3 characters long</span>" );
+	    $( "#email-input" ).attr( "data-validation-error-msg", "<span class=\"text-danger\">Invalid email format</span>" );
 	    $( "#terms-checkbox" ).attr( "data-validation-error-msg", "<span class=\"text-danger\"><br>You have to agree to our terms</span>" );
 	    $( "span.strength-meter" ).css("display", "block");
     </script>

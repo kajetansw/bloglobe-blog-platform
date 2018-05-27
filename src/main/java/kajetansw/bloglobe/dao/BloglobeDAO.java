@@ -81,18 +81,19 @@ public class BloglobeDAO implements IBloglobeDAO {
 	}
 
 	@Override
-	public void updateUsersFirstNameAndLastName(BGUser theUser) {
+	public void updateUsersFirstNameLastNameAndEmail(BGUser theUser) {
 
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// delete post with given id
 		Query saveQuery = currentSession.createQuery(
-			"update BGUser set firstName = :firstName, lastName = :lastName where username = :username"
+			"update BGUser set firstName = :firstName, lastName = :lastName, email = :email where username = :username"
 		);
 		saveQuery.setParameter("firstName", theUser.getFirstName());
 		saveQuery.setParameter("lastName", theUser.getLastName());
 		saveQuery.setParameter("username", theUser.getUsername());
+		saveQuery.setParameter("email", theUser.getEmail());
 		
 		saveQuery.executeUpdate();
 	}

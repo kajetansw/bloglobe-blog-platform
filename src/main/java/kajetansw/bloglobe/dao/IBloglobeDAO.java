@@ -17,6 +17,6 @@ public interface IBloglobeDAO {
 
 	public void deletePost(int id);
 
-	public void updateUsersFirstNameAndLastName(BGUser theUser);
+	public void updateUsersFirstNameLastNameAndEmail(BGUser theUser);
 
 }

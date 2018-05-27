@@ -49,8 +49,8 @@ public class BloglobeService implements IBloglobeService {
 
 	@Override
 	@Transactional
-	public void updateUsersFirstNameAndLastName(BGUser theUser) {
-		bloglobeDAO.updateUsersFirstNameAndLastName(theUser);
+	public void updateUsersFirstNameLastNameAndEmail(BGUser theUser) {
+		bloglobeDAO.updateUsersFirstNameLastNameAndEmail(theUser);
 	}
 
 
