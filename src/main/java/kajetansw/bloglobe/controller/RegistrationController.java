@@ -2,6 +2,8 @@ package kajetansw.bloglobe.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -52,34 +55,22 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/process")
-	public String processRegistrationForm(@ModelAttribute("newUser") BGUser newUser,
-			Model theModel) {
+	public String processRegistrationForm(@Valid @ModelAttribute("newUser") BGUser newUser,
+			Model theModel, BindingResult bindingResult) {
 		
-		// check the database if user already exists
+		if (bindingResult.hasErrors()) {
+			return "registration";
+		}
+		
 		if (doesUserExist(newUser.getUsername())) {
+			
 			theModel.addAttribute("newUser", new BGUser());
-			theModel.addAttribute("registrationError", "User name/password is already in use.");
+			theModel.addAttribute("registrationError", "Username is already in use!");
 			
 			return "registration";
 		}
 		
-		// encrypt the password
-		String encodedPassword = passwordEncoder.encode(newUser.getPassword());
-		
-		// complete encoding algorithm for database
-		encodedPassword = "{bcrypt}" + encodedPassword;
-		
-		// give user default role of USER
-		List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_USER");
-		
-		// create User object
-		User tempUser = new User(newUser.getUsername(), encodedPassword, authorities);
-		
-		// save user in the db
-		userDetailsManager.createUser(tempUser);
-		
-		// update user's firstName and lastName
-		bloglobeService.saveUser(newUser);
+		saveNewUserInDatabase(newUser);
 		
 		return "registration-confirmation";
 	}
@@ -93,9 +84,21 @@ public class RegistrationController {
 	////////////////////////////////
 	
 	private boolean doesUserExist(String username) {
+		return userDetailsManager.userExists(username);
+	}
+	
+	private String createEncodedPasswordForDatabase(BGUser user) {
+		return "{bcrypt}" + passwordEncoder.encode(user.getPassword());
+	}
+	
+	private void saveNewUserInDatabase(BGUser newUser) {
 		
-		boolean exists = userDetailsManager.userExists(username);
+		String encodedPassword = createEncodedPasswordForDatabase(newUser);
+		List<GrantedAuthority> usersAuthorities = AuthorityUtils.createAuthorityList("ROLE_USER");
 		
-		return exists;
+		User tempSpringSecurityUser = new User(newUser.getUsername(), encodedPassword, usersAuthorities);
+		
+		userDetailsManager.createUser(tempSpringSecurityUser);
+		bloglobeService.updateUsersFirstNameAndLastName(newUser);
 	}
 }

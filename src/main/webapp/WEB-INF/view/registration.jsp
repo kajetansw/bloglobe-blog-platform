@@ -33,7 +33,7 @@
     </header>
 
     <!-- REGISTRATION FORM -->
-    <section class="py-5">
+    <section class="py-4">
         <div class="container">
             <div class="row justify-content-center">
                  <div class="col-md-5">
@@ -44,7 +44,7 @@
 
                         <div class="card-body">
                             <form:form action="${pageContext.request.contextPath}/register/process"
-                            		method="POST" modelAttribute="newUser">
+                            		method="POST" modelAttribute="newUser" id="reg-form">
                             		
                             	<!-- Check for registration error -->	
                             	<div class="form-group text-danger">
@@ -55,27 +55,53 @@
                             		
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" name="username">
+                                    <input id="username-input" type="text" class="form-control" name="username"
+                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+                                    	data-validation-error-msg="">
+                                    <div class="text-danger">
+                                    	<i><form:errors path="username"></form:errors></i> 
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password">
+                                    <input id="password-input" type="password" class="form-control" name="password"
+                                    	data-validation="length" data-validation-length="min1"
+                                    	data-validation-error-msg="">
+                                    <div class="text-danger">
+                                    	<i><form:errors path="password"></form:errors></i> 
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control" name="firstName">
+                                    <input id="firstName-input" type="text" class="form-control" name="firstName"
+                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+                                    	data-validation-error-msg="">
+                                    <div class="text-danger">
+                                    	<i><form:errors path="firstName"></form:errors></i> 
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" name="lastName">
+                                    <input id="lastName-input" type="text" class="form-control" name="lastName" 
+                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+                                    	data-validation-error-msg="">
+                                    <div class="text-danger">
+                                    	<i><form:errors path="lastName"></form:errors></i> 
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                	<input id="terms-checkbox" type="checkbox" data-validation="required" 
+										data-validation-error-msg="You have to agree to our terms">
+									I agree to the <strong>terms of service</strong>
                                 </div>
 
                                 <hr>
 
-                                <input type="submit" class="btn btn-primary btn-block" value="Register Now!">
+                                <input form="reg-form" type="submit" class="btn btn-primary btn-block" value="Register Now!">
                                 <a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-3">
 			    					<i class="fa fa-arrow-left"></i> Back To Login
 			    				</a>
@@ -99,9 +125,34 @@
 
 
 
-    <!-- BOOTSTRAP SCRIPTS -->
+    <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    
+    <script type="text/javascript">
+	    $.validate({
+	   	  modules : 'security',
+	   	  onModulesLoaded : function() {
+	   	    var optionalConfig = {
+	   	      fontSize: '12pt',
+	   	      padding: '4px',
+	   	      margin: '3px',
+	   	      bad : 'Very bad',
+	   	      weak : 'Weak',
+	   	      good : 'Good',
+	   	      strong : 'Strong'
+	   	    };
+	
+	   	    $('input[name="password"]').displayPasswordStrength(optionalConfig);
+	   	  }
+	   	});
+	    
+	    $( "#password-input, #firstName-input, #lastName-input" ).attr( "data-validation-error-msg", "<span class=\"text-danger\">Field must not be empty</span>" );
+	    $( "#username-input" ).attr( "data-validation-error-msg", "<span class=\"text-danger\">Field must be at least 3 characters long</span>" );
+	    $( "#terms-checkbox" ).attr( "data-validation-error-msg", "<span class=\"text-danger\"><br>You have to agree to our terms</span>" );
+	    $( "span.strength-meter" ).css("display", "block");
+    </script>
 </body>
 </html>

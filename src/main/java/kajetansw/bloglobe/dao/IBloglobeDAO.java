@@ -7,16 +7,16 @@ import kajetansw.bloglobe.entity.Post;
 
 public interface IBloglobeDAO {
 
-	public List<Post> getPosts();
+	public List<Post> getAllPosts();
 
-	public void savePost(Post thePost);
+	public void saveOrUpdatePost(Post thePost);
 
-	public BGUser getCurrentUser(String currentPrincipalName);
+	public BGUser getCurrentUserByName(String currentPrincipalName);
 
 	public Post getPostById(int id);
 
 	public void deletePost(int id);
 
-	public void saveUser(BGUser theUser);
+	public void updateUsersFirstNameAndLastName(BGUser theUser);
 
 }

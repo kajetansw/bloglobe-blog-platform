@@ -29,15 +29,17 @@ public class TestDbServlet extends HttpServlet {
 		// get connection to db
 		try {
 			
-			PrintWriter out = resp.getWriter();
+			//PrintWriter out = resp.getWriter();
 			
-			out.println("Connecting to database: " + jdbcUrl);
+			//out.println("Connecting to database: " + jdbcUrl);
+			System.out.println("Connecting to database: " + jdbcUrl);
 			
-			Class.forName(driver);
+			//Class.forName(driver);
 			
 			Connection myConn = DriverManager.getConnection(jdbcUrl, user, pass);
 			
-			out.println("### Success!");
+			//out.println("### Success!");
+			System.out.println("### Success!");
 			
 			myConn.close();
 			

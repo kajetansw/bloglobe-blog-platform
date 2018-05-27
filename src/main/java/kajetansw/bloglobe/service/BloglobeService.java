@@ -19,20 +19,20 @@ public class BloglobeService implements IBloglobeService {
 	
 	@Override
 	@Transactional
-	public List<Post> getPosts() {
-		return bloglobeDAO.getPosts();
+	public List<Post> getAllPosts() {
+		return bloglobeDAO.getAllPosts();
 	}
 
 	@Override
 	@Transactional
-	public void savePost(Post thePost) {
-		bloglobeDAO.savePost(thePost);
+	public void saveOrUpdatePost(Post thePost) {
+		bloglobeDAO.saveOrUpdatePost(thePost);
 	}
 
 	@Override
 	@Transactional
-	public BGUser getCurrentUser(String currentPrincipalName) {
-		return bloglobeDAO.getCurrentUser(currentPrincipalName);
+	public BGUser getCurrentUserByName(String currentPrincipalName) {
+		return bloglobeDAO.getCurrentUserByName(currentPrincipalName);
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class BloglobeService implements IBloglobeService {
 
 	@Override
 	@Transactional
-	public void saveUser(BGUser theUser) {
-		bloglobeDAO.saveUser(theUser);
+	public void updateUsersFirstNameAndLastName(BGUser theUser) {
+		bloglobeDAO.updateUsersFirstNameAndLastName(theUser);
 	}
 
 

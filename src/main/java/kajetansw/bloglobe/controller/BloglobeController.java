@@ -1,13 +1,17 @@
 package kajetansw.bloglobe.controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,10 +35,10 @@ public class BloglobeController {
 	public String showDashboard(Model theModel) {
 		
 		// get Posts from the Service
-		List<Post> thePosts = bloglobeService.getPosts();
+		List<Post> allPosts = bloglobeService.getAllPosts();
 		
 		// add posts to the model
-		theModel.addAttribute("posts", thePosts);
+		theModel.addAttribute("posts", allPosts);
 		
 		// get User from the Service
 		BGUser currentUser = getCurrentUser();
@@ -42,22 +46,26 @@ public class BloglobeController {
 		// create model attribute to bind Add Form data and set current User
 		Post newPost = new Post();
 		newPost.setUser(currentUser);
-		newPost.setDate(LocalDateTime.now());
 		
 		// add newPost nad current User to the model
 		theModel.addAttribute("post", newPost);
-		theModel.addAttribute("currentUser", getCurrentUser());
+		theModel.addAttribute("currentUser", currentUser);
 		
 		return "dashboard";
 	}
 	
-	// saving or updating Post
 	@PostMapping("/save-post")
-	public String savePost(@ModelAttribute("post") Post thePost) {
+	public String saveOrUpdatePost(@Valid @ModelAttribute("post") Post thePost, 
+			BindingResult bindingResult, Model theModel) {
 		
-		// save the customer using Service
-		bloglobeService.savePost(thePost);
+		if (bindingResult.hasErrors()) {
+			return "add-post-form";
+		}
 		
+		thePost.setDate(LocalDateTime.now(ZoneId.of("GMT+2")));
+		
+		bloglobeService.saveOrUpdatePost(thePost);
+			
 		return "redirect:/";
 	}
 	
@@ -65,34 +73,24 @@ public class BloglobeController {
 	public String viewPost(@RequestParam(value="id") final int id, 
 			Model theModel) {
 		
-		// get Post from the Service by its id
 		Post postToView = bloglobeService.getPostById(id);
 		
-		// add currentUser to the Model
 		theModel.addAttribute("currentUser", getCurrentUser());
-		
-		// add postToView to the Model
 		theModel.addAttribute("postToView", postToView);
 		
 		return "view-post";
 	}
 	
 	@GetMapping("edit-post")
-	public String editPost(@RequestParam(value="id") final int id, 
-			Model theModel) {
+	public String editPost(@RequestParam(value="id") final int id, Model theModel) {
 		
-		// get Post from the Service by its id
 		Post postToEdit = bloglobeService.getPostById(id);
-		
-		// get current User
 		BGUser currentUser = getCurrentUser();
 		
 		// check if the author of the post is the current user
-		if (postToEdit.getUser().getUsername().equals(currentUser.getUsername())) {
+		if (isUserAuthorOfPost(currentUser, postToEdit)) {
 			
-			// add postToEdit to the Model
 			theModel.addAttribute("postToEdit", postToEdit);
-			
 			return "edit-post";
 		} 
 		else {
@@ -102,21 +100,15 @@ public class BloglobeController {
 	}
 	
 	@GetMapping("delete-post")
-	public String deletePost(@RequestParam(value="id") final int id,
-			Model theModel) {
+	public String deletePost(@RequestParam(value="id") final int id, Model theModel) {
 		
-		// get Post from the Service by its id
 		Post postToDelete = bloglobeService.getPostById(id);
-		
-		// get current User
 		BGUser currentUser = getCurrentUser();
 		
 		// check if the author of the post is the current user
-		if (postToDelete.getUser().getUsername().equals(currentUser.getUsername()) || currentUser.getUsername().equals("admin")) {
+		if (isUserAuthorizedForPostDelete(currentUser, postToDelete)) {
 			
-			// delete the post
 			bloglobeService.deletePost(id);
-			
 			return "redirect:/";
 		} 
 		else {
@@ -136,8 +128,17 @@ public class BloglobeController {
 		String currentPrincipalName = authentication.getName();
 		
 		// get User from the Service
-		BGUser currentUser = bloglobeService.getCurrentUser(currentPrincipalName);
+		BGUser currentUser = bloglobeService.getCurrentUserByName(currentPrincipalName);
 		
 		return currentUser;
 	}
+	
+	private boolean isUserAuthorOfPost(BGUser user, Post post) {
+		return post.getUser().getUsername().equals(user.getUsername());
+	}
+	
+	private boolean isUserAuthorizedForPostDelete(BGUser user, Post post) {
+		return isUserAuthorOfPost(user, post) || user.getUsername().equals("admin");
+	}
+	
 }

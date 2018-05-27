@@ -103,11 +103,13 @@
 								<div class="form-group">
 									<label for="input-post-title">Title</label>
 									<form:input path="title" type="text" class="form-control" id="input-post-title"/>
+									<div class="text-danger font-weight-bold p-2"><form:errors path="title"></form:errors></div>
 								</div>
 								
 								<div class="form-group">
 									<label for="input-post-content">Content</label>
 									<form:textarea path="content" id="input-post-content" rows="10" class="form-control"></form:textarea>
+									<div class="text-danger font-weight-bold p-2"><form:errors path="content"></form:errors></div>
 								</div>
 								
 							</form:form>

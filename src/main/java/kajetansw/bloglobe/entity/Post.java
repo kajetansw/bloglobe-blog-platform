@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="posts")
@@ -23,9 +25,13 @@ public class Post {
 	private int id;
 	
 	@Column(name="title")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "Title is required!")
 	private String title;
 	
 	@Column(name="content")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "Post must have a body!")
 	private String content;
 	
 	@Column(name="date")

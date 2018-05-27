@@ -19,22 +19,22 @@ public class BloglobeDAO implements IBloglobeDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<Post> getPosts() {
+	public List<Post> getAllPosts() {
 
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// create query to get all Users
-		Query<Post> theQuery = currentSession.createQuery("from Post order by date desc", Post.class);
+		Query<Post> getAllUsersQuery = currentSession.createQuery("from Post order by date desc", Post.class);
 		
 		// execute query and get result list
-		List<Post> posts = theQuery.getResultList();
+		List<Post> allPosts = getAllUsersQuery.getResultList();
 		
-		return posts;
+		return allPosts;
 	}
 
 	@Override
-	public void savePost(Post thePost) {
+	public void saveOrUpdatePost(Post thePost) {
 		
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -44,7 +44,7 @@ public class BloglobeDAO implements IBloglobeDAO {
 	}
 
 	@Override
-	public BGUser getCurrentUser(String currentPrincipalName) {
+	public BGUser getCurrentUserByName(String currentPrincipalName) {
 		
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -70,26 +70,26 @@ public class BloglobeDAO implements IBloglobeDAO {
 	@Override
 	public void deletePost(int id) {
 		
-		// get the current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		// delete post with given id
-		Query deleteQuery 
-			= currentSession.createQuery("delete from Post where id=:postId");
+		Query deleteQuery = currentSession.createQuery(
+			"delete from Post where id=:postId"
+		);
 		deleteQuery.setParameter("postId", id);
 		
 		deleteQuery.executeUpdate();
 	}
 
 	@Override
-	public void saveUser(BGUser theUser) {
+	public void updateUsersFirstNameAndLastName(BGUser theUser) {
 
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
 		// delete post with given id
-		Query saveQuery 
-			= currentSession.createQuery("update BGUser set firstName = :firstName, lastName = :lastName where username = :username");
+		Query saveQuery = currentSession.createQuery(
+			"update BGUser set firstName = :firstName, lastName = :lastName where username = :username"
+		);
 		saveQuery.setParameter("firstName", theUser.getFirstName());
 		saveQuery.setParameter("lastName", theUser.getLastName());
 		saveQuery.setParameter("username", theUser.getUsername());

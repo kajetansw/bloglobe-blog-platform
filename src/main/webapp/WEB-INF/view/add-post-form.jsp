@@ -58,7 +58,7 @@
     <!-- HEADER -->
     <header class="bg-primary text-white p-3">
         <div class="container">
-            <h2><i class="fa fa-user"></i> Welcome, ${currentUser.firstName}!</h2>
+            <h2><i class="fa fa-pencil"></i> Add Post</h2>
         </div>
     </header>
     
@@ -66,44 +66,52 @@
     <section class="py-4">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-3">
-    				<button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#add-post-modal">
-    					<i class="fa fa-plus"></i> Add Post
-    				</button>
+    			<div class="col-md-12">
+    				<div class="row justify-content-between">
+    					<div class="col-md-3">
+		    				<a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-1">
+		    					<i class="fa fa-arrow-left"></i> Back To Dashboard
+		    				</a>
+		    			</div>
+		    			
+		    			<div class="col-md-3">
+		    				<button form="add-post-form-expanded" class="btn btn-success btn-block my-1">
+		    					<i class="fa fa-check"></i> Save
+		    				</button>
+		    			</div>
+    				</div>
     			</div>
     		</div>
     	</div>
     </section>
-
-	<!-- LIST POSTS -->
-    <section id="posts" class="mt-2">
+    
+    <!-- ADD POST -->
+    <section id="add-post-section" class="mt-2">
     	<div class="container">
-    		<div class="row">
-    			<div class="col-md-10">
-    				<div class="card">
-    					<div class="card-header">
-    						<h4>Latest Posts</h4>
-    					</div>
-    					
-    					<table class="table table-hover table-light">
-	    					<thead class="thead-dark">
-	    						<tr>
-	    							<th style="width:50%;">Title</th>
-	    							<th>Date</th>
-	    							<th>Author</th>
-	    						</tr>
-	    					</thead>
-	    					
-	    					<tbody>
-	    						<c:forEach var="tempPost" items="${ posts }">
-	    							<tr class='clickable-row' data-href='bg/view-post?id=${tempPost.id}'>
-	    								<td>${ tempPost.title }</td>
-	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
-	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
-	    							</tr>
-	    						</c:forEach>
-	    					</tbody>
-	    				</table>
+    		<div class="row justify-content-center">
+    			<div class="col-md-12">
+    			
+    				<div class="card card-body">
+    					<form:form action="${pageContext.request.contextPath}/bg/save-post" modelAttribute="post" 
+							id="add-post-form-expanded" method="POST">
+							
+							<form:hidden path="id"/>
+							<form:hidden path="user.username"/>
+							<form:hidden path="date"/>
+							
+							<div class="form-group">
+								<label for="input-post-title">Title</label>
+								<form:input path="title" type="text" class="form-control" id="input-post-title"/>
+								<div class="text-danger font-weight-bold p-2"><form:errors path="title"></form:errors></div>
+							</div>
+							
+							<div class="form-group">
+								<label for="input-post-content">Content</label>
+								<form:textarea path="content" id="input-post-content" rows="5" class="form-control"></form:textarea>
+								<div class="text-danger font-weight-bold p-2"><form:errors path="content"></form:errors></div>
+							</div>
+							
+						</form:form>
     				</div>
     			</div>
     		</div>
@@ -119,46 +127,6 @@
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>
     </footer>
-    
-    <!-- POST MODAL -->
-	<div class="modal fade" id="add-post-modal" role="dialog">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header bg-primary text-white">
-					<h5>Add Post</h5>
-					<button type="button" class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				
-				<div class="modal-body">
-					<form:form action="${pageContext.request.contextPath}/bg/save-post" modelAttribute="post" 
-							id="add-post-form" method="POST">
-							
-						<form:hidden path="id"/>
-						<form:hidden path="user.username"/>
-						<form:hidden path="date"/>
-						
-						<div class="form-group">
-							<label for="input-post-title">Title</label>
-							<form:input path="title" type="text" class="form-control" id="input-post-title"/>
-						</div>
-						
-						<div class="form-group">
-							<label for="input-post-content">Content</label>
-							<form:textarea path="content" id="input-post-content" rows="5" class="form-control"></form:textarea>
-						</div>
-						
-					</form:form>
-				</div>
-				
-				<div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" form="add-post-form">Save Changes</button>
-                </div>
-			</div>
-		</div>
-	</div>
 	
 
 
