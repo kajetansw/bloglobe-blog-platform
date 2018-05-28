@@ -63,6 +63,7 @@ public class BloglobeController {
 			BindingResult bindingResult, Model theModel) {
 		
 		if (bindingResult.hasErrors()) {
+			theModel.addAttribute("currentUser", getCurrentUser());
 			return "add-post-form";
 		}
 		
@@ -95,6 +96,7 @@ public class BloglobeController {
 		if (isUserAuthorOfPost(currentUser, postToEdit)) {
 			
 			theModel.addAttribute("postToEdit", postToEdit);
+			theModel.addAttribute("currentUser", currentUser);
 			return "edit-post";
 		} 
 		else {

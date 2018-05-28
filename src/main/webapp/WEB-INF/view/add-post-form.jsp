@@ -43,12 +43,21 @@
                 </ul>
                 
                 <ul class="navbar-nav ml-auto">
-                	<li class="nav-item px-2">
-                        <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST">
-							<a href="javascript:{}" class="ml-auto nav-link" onclick="document.getElementById('logout-form').submit(); return false;">
-	                        	<i class="fa fa-times"></i> Logout
-	                        </a>
-						</form:form>
+                    <li class="nav-item dropdown mr-3">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i> ${currentUser.firstName} ${currentUser.lastName}
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a href="${pageContext.request.contextPath}/bg/edit-profile" class="dropdown-item">
+                                <i class="fa fa-gear"></i> Edit Profile
+                            </a>
+                            <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST" cssClass="pl-3">
+								<a href="javascript:{}" class="ml-auto nav-link dropdown-item text-dark" onclick="document.getElementById('logout-form').submit(); return false;">
+		                        	<i class="fa fa-times"></i> Logout
+		                        </a>
+							</form:form>
+                        </div>
                     </li>
                 </ul>
             </div>

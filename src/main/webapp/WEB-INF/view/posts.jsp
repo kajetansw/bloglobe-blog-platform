@@ -45,12 +45,21 @@
                 </ul>
                 
                 <ul class="navbar-nav ml-auto">
-                	<li class="nav-item px-2">
-                        <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST">
-							<a href="javascript:{}" class="ml-auto nav-link" onclick="document.getElementById('logout-form').submit(); return false;">
-	                        	<i class="fa fa-times"></i> Logout
-	                        </a>
-						</form:form>
+                    <li class="nav-item dropdown mr-3">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-user"></i> ${currentUser.firstName} ${currentUser.lastName}
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a href="${pageContext.request.contextPath}/bg/edit-profile" class="dropdown-item">
+                                <i class="fa fa-gear"></i> Edit Profile
+                            </a>
+                            <form:form id="logout-form" action="${pageContext.request.contextPath}/logout" method="POST" cssClass="pl-3">
+								<a href="javascript:{}" class="ml-auto nav-link dropdown-item text-dark" onclick="document.getElementById('logout-form').submit(); return false;">
+		                        	<i class="fa fa-times"></i> Logout
+		                        </a>
+							</form:form>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -74,27 +83,27 @@
     						<h4>All users' posts:</h4>
     					</div>
     					
-    					<br>
-    					
-    					<table id="all-users-posts-table" class="table table-hover table-light">
-	    					<thead class="thead-dark">
-	    						<tr>
-	    							<th style="width:50%;">Title</th>
-	    							<th>Date</th>
-	    							<th>Author</th>
-	    						</tr>
-	    					</thead>
-	    					
-	    					<tbody>
-	    						<c:forEach var="tempPost" items="${ posts }">
-	    							<tr class='clickable-row' data-href='view-post?id=${tempPost.id}'>
-	    								<td>${ tempPost.title }</td>
-	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
-	    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
-	    							</tr>
-	    						</c:forEach>
-	    					</tbody>
-	    				</table>
+    					<div class="card-body m-1">
+    						<table id="all-users-posts-table" class="table table-hover table-light">
+		    					<thead class="thead-dark">
+		    						<tr>
+		    							<th style="width:50%;">Title</th>
+		    							<th>Date</th>
+		    							<th>Author</th>
+		    						</tr>
+		    					</thead>
+		    					
+		    					<tbody>
+		    						<c:forEach var="tempPost" items="${ posts }">
+		    							<tr class='clickable-row' data-href='view-post?id=${tempPost.id}'>
+		    								<td>${ tempPost.title }</td>
+		    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
+		    								<td>${ tempPost.user.firstName } ${ tempPost.user.lastName }</td>
+		    							</tr>
+		    						</c:forEach>
+		    					</tbody>
+		    				</table>
+    					</div>
     				</div>
     			</div>
     		</div>
