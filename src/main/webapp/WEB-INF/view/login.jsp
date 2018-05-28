@@ -89,7 +89,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
+    <footer class="footer bg-dark text-muted text-center p-3 fixed-bottom">
         <div class="container">
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>

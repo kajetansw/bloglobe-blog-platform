@@ -66,7 +66,7 @@
     <section class="py-4">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-10">
+    			<div class="col-md-12">
     				<div class="row justify-content-between">
     					<div class="col-md-3">
 		    				<a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-1">
@@ -99,10 +99,10 @@
     <section id="post-to-view" class="mt-1 mb-5">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-10">
+    			<div class="col-md-12">
     				<div class="card">
     					
-    					<div class="card-header">
+    					<div class="card-header text-center">
     						<h4>${postToView.title}</h4>
     					</div>
     					
@@ -129,7 +129,7 @@
     <div style="height: 5rem;"></div>
 
     <!-- FOOTER -->
-    <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
+    <footer class="footer bg-dark text-muted text-center p-3 fixed-bottom">
         <div class="container">
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>

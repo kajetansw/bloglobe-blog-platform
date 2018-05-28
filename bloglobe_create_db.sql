@@ -2,6 +2,7 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` char(68) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
+  email, varchar(75) NOT NULL,
   first_name varchar(25) NOT NULL,
   last_name varchar(25) NOT NULL,
   PRIMARY KEY (`username`)
@@ -24,8 +25,8 @@ CREATE TABLE `posts` (
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('admin', '{bcrypt}$2a$04$lIkIH9Prx9NFp.wLrIJPO.2qXTUQ0GNHRDiCFqpH1ScMrb9tG5xUS', '1', 'Admin', 'Admin');
-INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('kajetan', '{bcrypt}$2a$04$T7/FCVKH0pJQTe392gM/6.sTROC4tnK8pD86HqntENiC2CoPE4ZJW', '1', 'Kajetan', 'Swiatek');
+INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('admin', '{bcrypt}$2a$04$lIkIH9Prx9NFp.wLrIJPO.2qXTUQ0GNHRDiCFqpH1ScMrb9tG5xUS', '1', 'admin@admin.com', 'Admin', 'Admin');
+INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('kajetan', '{bcrypt}$2a$04$T7/FCVKH0pJQTe392gM/6.sTROC4tnK8pD86HqntENiC2CoPE4ZJW', '1', 'kajetan@gmail.com', 'Kajetan', 'Swiatek');
 
 INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`authorities` (`username`, `authority`) VALUES ('kajetan', 'ROLE_USER');
 INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`authorities` (`username`, `authority`) VALUES ('admin', 'ROLE_USER');

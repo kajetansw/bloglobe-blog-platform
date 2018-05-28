@@ -36,8 +36,8 @@
     <section class="py-4">
         <div class="container">
             <div class="row justify-content-center">
-                 <div class="col-md-5">
-                    <div class="card">
+                 <div class="col-md-10">
+                    <div class="card card-lg">
                         <div class="card-header">
                             Please, fill in the form:
                         </div>
@@ -53,53 +53,59 @@
                                    	</c:if>
                                 </div>
                             		
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input id="username-input" type="text" class="form-control" name="username"
-                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
-                                    	data-validation-error-msg="">
-                                    <div class="text-danger">
-                                    	<i><form:errors path="username"></form:errors></i> 
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input id="password-input" type="password" class="form-control" name="password"
-                                    	data-validation="length" data-validation-length="min1"
-                                    	data-validation-error-msg="">
-                                    <div class="text-danger">
-                                    	<i><form:errors path="password"></form:errors></i> 
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email-input" type="email" class="form-control" name="email"
-                                    	data-validation="email" data-validation-error-msg="">
-                                    <div class="text-danger">
-                                    	<i><form:errors path="email"></form:errors></i> 
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input id="firstName-input" type="text" class="form-control" name="firstName"
-                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
-                                    	data-validation-error-msg="">
-                                    <div class="text-danger">
-                                    	<i><form:errors path="firstName"></form:errors></i> 
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input id="lastName-input" type="text" class="form-control" name="lastName" 
-                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
-                                    	data-validation-error-msg="">
-                                    <div class="text-danger">
-                                    	<i><form:errors path="lastName"></form:errors></i> 
-                                    </div>
+                                <div class="row">
+                                	<div class="col-md-6">
+	                                	<div class="form-group">
+		                                    <label for="username">Username</label> *
+		                                    <input id="username-input" type="text" class="form-control" name="username"
+		                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+		                                    	data-validation-error-msg="">
+		                                    <div class="text-danger">
+		                                    	<i><form:errors path="username"></form:errors></i> 
+		                                    </div>
+		                                </div>
+		
+		                                <div class="form-group">
+		                                    <label for="password">Password</label> *
+		                                    <input id="password-input" type="password" class="form-control" name="password"
+		                                    	data-validation="length" data-validation-length="min1"
+		                                    	data-validation-error-msg="">
+		                                    <div class="text-danger">
+		                                    	<i><form:errors path="password"></form:errors></i> 
+		                                    </div>
+		                                </div>
+	                                </div>
+	                                
+	                                <div class="col-md-6">
+		                                <div class="form-group">
+		                                    <label for="email">Email</label> *
+		                                    <input id="email-input" type="email" class="form-control" name="email"
+		                                    	data-validation="email" data-validation-error-msg="">
+		                                    <div class="text-danger">
+		                                    	<i><form:errors path="email"></form:errors></i> 
+		                                    </div>
+		                                </div>
+		
+		                                <div class="form-group">
+		                                    <label for="firstName">First Name</label> *
+		                                    <input id="firstName-input" type="text" class="form-control" name="firstName"
+		                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+		                                    	data-validation-error-msg="">
+		                                    <div class="text-danger">
+		                                    	<i><form:errors path="firstName"></form:errors></i> 
+		                                    </div>
+		                                </div>
+		
+		                                <div class="form-group">
+		                                    <label for="lastName">Last Name</label> *
+		                                    <input id="lastName-input" type="text" class="form-control" name="lastName" 
+		                                    	data-validation="alphanumeric lenght" data-validation-length="min3"
+		                                    	data-validation-error-msg="">
+		                                    <div class="text-danger">
+		                                    	<i><form:errors path="lastName"></form:errors></i> 
+		                                    </div>
+		                                </div>
+	                                </div>
                                 </div>
                                 
                                 <div class="form-group">
@@ -109,11 +115,23 @@
                                 </div>
 
                                 <hr>
+                                
+								(*) Mandatory fields                                
+                                
+                                <hr>
 
-                                <input form="reg-form" type="submit" class="btn btn-primary btn-block" value="Register Now!">
-                                <a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block my-3">
-			    					<i class="fa fa-arrow-left"></i> Back To Login
-			    				</a>
+                                <div class="row">
+	                                <div class="col-md-6 py-2">
+	                                	 <a href="${pageContext.request.contextPath}/bg" class="btn btn-outline-secondary btn-block">
+					    					<i class="fa fa-arrow-left"></i> Back To Login
+					    				</a>
+	                                </div>
+	                                
+                                	<div class="col-md-6 py-2">
+                                		<input form="reg-form" type="submit" class="btn btn-primary btn-block" value="Register Now!">
+                                	</div>
+                                </div>
+                                
                             </form:form>
                         </div>
                     </div>
@@ -126,7 +144,7 @@
     <div style="height: 5rem;"></div>
 
     <!-- FOOTER -->
-    <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
+    <footer class="footer bg-dark text-muted text-center p-3 fixed-bottom">
         <div class="container">
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>

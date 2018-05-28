@@ -79,7 +79,7 @@
     <section id="posts" class="mt-2">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-10">
+    			<div class="col-md-12">
     				<div class="card">
     					<div class="card-header">
     						<h4>Latest Posts</h4>
@@ -114,7 +114,7 @@
     <div style="height: 5rem;"></div>
     
     <!-- FOOTER -->
-    <footer class="footer bg-dark text-muted text-center p-4 fixed-bottom">
+    <footer class="footer bg-dark text-muted text-center p-3 fixed-bottom">
         <div class="container">
             Copyright &copy; Kajetan Swiatek, 2018 
         </div>
