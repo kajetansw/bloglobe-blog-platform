@@ -30,28 +30,32 @@ public class BloglobeController {
 	
 	@Autowired
 	private IBloglobeService bloglobeService;
-
+	
 	@GetMapping("")
 	public String showDashboard(Model theModel) {
 		
-		// get Posts from the Service
-		List<Post> allPosts = bloglobeService.getAllPosts();
-		
-		// add posts to the model
-		theModel.addAttribute("posts", allPosts);
-		
-		// get User from the Service
 		BGUser currentUser = getCurrentUser();
+		List<Post> currentUsersPosts = currentUser.getPosts();
 		
-		// create model attribute to bind Add Form data and set current User
 		Post newPost = new Post();
 		newPost.setUser(currentUser);
 		
-		// add newPost nad current User to the model
+		theModel.addAttribute("currentUsersPosts", currentUsersPosts);
 		theModel.addAttribute("post", newPost);
 		theModel.addAttribute("currentUser", currentUser);
 		
 		return "dashboard";
+	}
+	
+	@GetMapping("/posts")
+	public String showAllPosts(Model theModel) {
+		
+		List<Post> allPosts = bloglobeService.getAllPosts();
+		
+		theModel.addAttribute("posts", allPosts);
+		theModel.addAttribute("currentUser", getCurrentUser());
+		
+		return "posts";
 	}
 	
 	@PostMapping("/save-post")

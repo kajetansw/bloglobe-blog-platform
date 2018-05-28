@@ -30,15 +30,15 @@
             <div class="collapse navbar-collapse" id="navCollapseContent">
                 <ul class="navbar-nav">
                     <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/bg" class="nav-link">Dashboard</a>
                     </li>
 
                     <li class="nav-item px-2">
-                        <a href="/posts" class="nav-link">Posts</a>
+                        <a href="${pageContext.request.contextPath}/bg/posts" class="nav-link">Posts</a>
                     </li>
 
                     <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Users</a>
+                        <a href="${pageContext.request.contextPath}/bg/users" class="nav-link">Users</a>
                     </li>
                 </ul>
                 

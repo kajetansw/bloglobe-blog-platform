@@ -12,6 +12,8 @@
     <!-- BOOTSTRAP LINK -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
 </head>
 
 <body>
@@ -30,15 +32,15 @@
             <div class="collapse navbar-collapse" id="navCollapseContent">
                 <ul class="navbar-nav">
                     <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Dashboard</a>
+                        <a href="${pageContext.request.contextPath}/bg" class="nav-link">Dashboard</a>
                     </li>
 
                     <li class="nav-item px-2">
-                        <a href="/posts" class="nav-link">Posts</a>
+                        <a href="${pageContext.request.contextPath}/bg/posts" class="nav-link">Posts</a>
                     </li>
 
                     <li class="nav-item px-2">
-                        <a href="/" class="nav-link">Users</a>
+                        <a href="${pageContext.request.contextPath}/bg/users" class="nav-link">Users</a>
                     </li>
                 </ul>
                 
@@ -79,13 +81,15 @@
     <section id="posts" class="mt-2">
     	<div class="container">
     		<div class="row">
-    			<div class="col-md-12">
+    			<div class="col-md-9">
     				<div class="card">
     					<div class="card-header">
-    						<h4>Latest Posts</h4>
+    						<h4>Your latest posts:</h4>
     					</div>
     					
-    					<table class="table table-hover table-light">
+    					<br>
+    					
+    					<table id="users-posts-table" class="table table-hover table-light">
 	    					<thead class="thead-dark">
 	    						<tr>
 	    							<th style="width:50%;">Title</th>
@@ -95,7 +99,7 @@
 	    					</thead>
 	    					
 	    					<tbody>
-	    						<c:forEach var="tempPost" items="${ posts }">
+	    						<c:forEach var="tempPost" items="${ currentUsersPosts }">
 	    							<tr class='clickable-row' data-href='bg/view-post?id=${tempPost.id}'>
 	    								<td>${ tempPost.title }</td>
 	    								<td>${tempPost.date.toLocalDate()} ${tempPost.date.withSecond(0).toLocalTime()}</td>
@@ -104,6 +108,12 @@
 	    						</c:forEach>
 	    					</tbody>
 	    				</table>
+	    				
+	    				<div id="no-posts-warning" class="p-3" style="display:none;">
+	    					<h2>You have yet to write Your own post! :)</h2>
+		    				<br>
+		    				<h5>Press green button above to do it now!</h5>
+	    				</div>
     				</div>
     			</div>
     		</div>
@@ -162,11 +172,14 @@
 	
 
 
-    <!-- BOOTSTRAP SCRIPTS -->
+    <!-- SCRIPTS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+    
     <script>
         CKEDITOR.replace( 'content' );
         
@@ -175,6 +188,19 @@
                 window.location = $(this).data("href");
             });
             $(".clickable-row").css("cursor", "pointer");
+            
+            // if table is not empty enable DataTable() plugin
+            if ($('#users-posts-table tr').length - 2 > 0) {
+            	$('#users-posts-table').DataTable({
+                    "order": [[ 1, "desc" ]]
+                });
+            }
+            
+            // if table is empty get rid of table and display warning
+            if ($('#users-posts-table tr').length - 1 === 0) {
+            	$('#users-posts-table').css('display', 'none');
+            	$('#no-posts-warning').css('display', 'inline');
+            }
         });
     </script>
 </body>

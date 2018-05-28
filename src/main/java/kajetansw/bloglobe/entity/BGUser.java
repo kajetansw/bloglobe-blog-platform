@@ -44,7 +44,7 @@ public class BGUser {
 	@Size(min = 1, message = "is required")
 	private String lastName;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="user", cascade= CascadeType.ALL)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="user", cascade= CascadeType.ALL)
 	private List<Post> posts;
 
 	public BGUser() {
