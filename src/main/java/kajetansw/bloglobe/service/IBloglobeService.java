@@ -18,4 +18,6 @@ public interface IBloglobeService {
 	public void deletePost(int id);
 
 	public void updateUsersFirstNameLastNameAndEmail(BGUser newUser);
+
+	public List<BGUser> getAllUsers();
 }

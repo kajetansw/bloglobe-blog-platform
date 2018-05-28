@@ -19,4 +19,6 @@ public interface IBloglobeDAO {
 
 	public void updateUsersFirstNameLastNameAndEmail(BGUser theUser);
 
+	public List<BGUser> getAllUsers();
+
 }

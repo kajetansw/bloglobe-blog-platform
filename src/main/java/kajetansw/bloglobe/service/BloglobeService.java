@@ -53,5 +53,11 @@ public class BloglobeService implements IBloglobeService {
 		bloglobeDAO.updateUsersFirstNameLastNameAndEmail(theUser);
 	}
 
+	@Override
+	@Transactional
+	public List<BGUser> getAllUsers() {
+		return bloglobeDAO.getAllUsers();
+	}
+
 
 }

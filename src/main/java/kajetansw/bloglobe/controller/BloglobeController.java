@@ -122,6 +122,16 @@ public class BloglobeController {
 		}
 	}
 	
+	@GetMapping("/users")
+	public String showUsers(Model theModel) {
+		
+		List<BGUser> allUsers = bloglobeService.getAllUsers();
+		
+		theModel.addAttribute("allUsers", allUsers);
+		
+		return "users";
+	}
+	
 	
 	///////////////////////////////
 	// HELPER METHODS

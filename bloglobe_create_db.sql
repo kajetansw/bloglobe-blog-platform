@@ -25,6 +25,19 @@ CREATE TABLE `posts` (
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `comments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` TEXT NOT NULL,
+  `post_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `post_id_idx` (`post_id` ASC),
+  CONSTRAINT `post_id`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `gcp_e1efb438b6caa2b0f31b`.`posts` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE);
+
+
 INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('admin', '{bcrypt}$2a$04$lIkIH9Prx9NFp.wLrIJPO.2qXTUQ0GNHRDiCFqpH1ScMrb9tG5xUS', '1', 'admin@admin.com', 'Admin', 'Admin');
 INSERT INTO `gcp_e1efb438b6caa2b0f31b`.`users` (`username`, `password`, `enabled`, `first_name`, `last_name`) VALUES ('kajetan', '{bcrypt}$2a$04$T7/FCVKH0pJQTe392gM/6.sTROC4tnK8pD86HqntENiC2CoPE4ZJW', '1', 'kajetan@gmail.com', 'Kajetan', 'Swiatek');
 

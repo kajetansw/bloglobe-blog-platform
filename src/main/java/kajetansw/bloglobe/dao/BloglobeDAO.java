@@ -21,14 +21,11 @@ public class BloglobeDAO implements IBloglobeDAO {
 	@Override
 	public List<Post> getAllPosts() {
 
-		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
 		
-		// create query to get all Users
-		Query<Post> getAllUsersQuery = currentSession.createQuery("from Post order by date desc", Post.class);
+		Query<Post> getAllPostsQuery = currentSession.createQuery("from Post order by date desc", Post.class);
 		
-		// execute query and get result list
-		List<Post> allPosts = getAllUsersQuery.getResultList();
+		List<Post> allPosts = getAllPostsQuery.getResultList();
 		
 		return allPosts;
 	}
@@ -96,6 +93,19 @@ public class BloglobeDAO implements IBloglobeDAO {
 		saveQuery.setParameter("email", theUser.getEmail());
 		
 		saveQuery.executeUpdate();
+	}
+
+	@Override
+	public List<BGUser> getAllUsers() {
+		
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query<BGUser> getAllUsersQuery = currentSession.createQuery("from BGUser where username != :admin order by username asc", BGUser.class);
+		getAllUsersQuery.setParameter("admin", "admin");
+		
+		List<BGUser> allUsers = getAllUsersQuery.getResultList();
+		
+		return allUsers;
 	}
 
 }
